@@ -34,9 +34,9 @@ def clone_repo(main_repo_name, remote_branch, destination):
     remote_params = remote_branch.split(':')
     account_name = remote_params[0]
     branch_name = remote_params[1]
-    full_url = 'https://github.com/' + account_name + '/' + main_repo_name
+    full_url = 'git@github.com:' + account_name + '/' + main_repo_name
     logger.debug("Cloning {0} {1} branch into {2}".format(full_url, branch_name, destination))
-    Repo.clone_from(url=full_url, to_path=destination, branch=branch_name)
+    run_command('git clone --depth=1 --branch={0} {1} {2}'.format(branch_name, full_url, destination))
 
 
 def decrypt_file(repo_path, file_name):
