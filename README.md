@@ -3,6 +3,8 @@ A tool used to display a 'diff' between two ansible-vault repos
 
 ## Installation Instructions
 Requires git, ansible-vault, diff commands  
+`git clone https://github.com/pwnbus/ansible-vault-diff`  
+`cd ansible-vault-diff`  
 `pip install -e .`
 
 ## Usage
