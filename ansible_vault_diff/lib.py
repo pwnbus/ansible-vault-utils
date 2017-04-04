@@ -3,7 +3,6 @@ import logging
 
 from os import path, walk
 from subprocess import Popen, PIPE, STDOUT
-from git import Repo
 
 
 logger = logging.getLogger()
