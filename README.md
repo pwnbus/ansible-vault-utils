@@ -30,7 +30,6 @@ index 6621dfd..ac7d3d3 100644
 +  'db_name': 'somedb',
  }
 
-
 === files/otherfile.conf ===
 diff --git a/files/otherfile.conf b/files/otherfile.conf
 index e785b8e..43dbf7b 100644
