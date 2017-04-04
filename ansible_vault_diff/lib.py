@@ -45,7 +45,7 @@ def decrypt_file(repo_path, file_name):
 
 
 def diff_file(source_file, destination_file):
-    diff_output = run_command('diff {0} {1}'.format(source_file, destination_file))
+    diff_output = run_command('git diff --no-index -- {0} {1}'.format(destination_file, source_file))
     return diff_output
 
 
