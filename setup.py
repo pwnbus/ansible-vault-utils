@@ -15,7 +15,7 @@ config = {
     'author_email': 'pwnbus@mozilla.com',
     'version': version,
     'install_requires': [
-        'GitPython==2.1.3',
+        # None yet :)
     ],
     'packages': ['ansible_vault_diff', 'bin'],
     'scripts': [],

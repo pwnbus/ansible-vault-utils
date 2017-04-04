@@ -1,2 +1,5 @@
 # Data location to store the repos
 data/repos/**/*
+
+# Leftover by pip install
+ansible_vault_diff.egg-info/
