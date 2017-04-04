@@ -19,10 +19,11 @@ try:
     lib.clone_repo(repo_name, destination_remote_branch, destination_repo_path)
 
     results = lib.diff_repo(source_repo_path, destination_repo_path)
-    print('\n== Results ==')
+    print('\n== Results ==\n')
     for filename, result in results.iteritems():
-        print('\n=== {0} ==='.format(filename))
-        print(result)
+        print('=== {0} ==='.format(filename))
+        print(result),
+    print('')
 finally:
     lib.remove_repo_data(source_repo_path)
     lib.remove_repo_data(destination_repo_path)
