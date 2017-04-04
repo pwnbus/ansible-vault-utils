@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+from os import path
+from ansible_vault_diff import lib
+
+
+repo_name = lib.get_input('Enter repo name: ')
+source_remote_branch = lib.get_input('Enter source remote:branch: ')
+destination_remote_branch = lib.get_input('Enter destination remote:branch: ')
+
+repos_path = path.abspath(path.join(path.dirname(__file__), "../data/repos"))
+source_repo_path = repos_path + '/source'
+destination_repo_path = repos_path + '/destination'
+
+lib.remove_repo_data(source_repo_path)
+lib.remove_repo_data(destination_repo_path)
+try:
+    lib.clone_repo(repo_name, source_remote_branch, source_repo_path)
+    lib.clone_repo(repo_name, destination_remote_branch, destination_repo_path)
+
+    results = lib.diff_repo(source_repo_path, destination_repo_path)
+    print('\n== Results ==')
+    for filename, result in results.iteritems():
+        print('\n=== {0} ==='.format(filename))
+        print(result)
+finally:
+    lib.remove_repo_data(source_repo_path)
+    lib.remove_repo_data(destination_repo_path)
