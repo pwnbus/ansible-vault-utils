@@ -9,8 +9,8 @@ source_remote_branch = lib.get_input('Enter source remote:branch: ')
 destination_remote_branch = lib.get_input('Enter destination remote:branch: ')
 
 repos_path = path.abspath(path.join(path.dirname(__file__), "../data/repos"))
-source_repo_path = repos_path + '/source'
-destination_repo_path = repos_path + '/destination'
+source_repo_path = path.join(repos_path, 'source')
+destination_repo_path = path.join(repos_path, 'destination')
 
 lib.remove_repo_data(source_repo_path)
 lib.remove_repo_data(destination_repo_path)
