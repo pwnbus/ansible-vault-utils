@@ -2,7 +2,7 @@
 A tool used to display a 'diff' between two ansible-vault repos
 
 ## Installation Instructions
-Requires git, ansible-vault, diff commands
+Requires git, ansible-vault, diff commands  
 `pip install -e .`
 
 ## Usage
