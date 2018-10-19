@@ -4,6 +4,11 @@ import logging
 from os import path, walk
 from subprocess import Popen, PIPE, STDOUT
 
+# Handle python2
+try:
+    input = raw_input
+except NameError:
+    pass
 
 logger = logging.getLogger()
 logger.level = logging.INFO
@@ -14,7 +19,7 @@ logger.addHandler(stream_handler)
 
 
 def get_input(msg):
-    return raw_input(msg).rstrip()
+    return input(msg).rstrip()
 
 
 def run_command(cmd_str, working_dir=None):
@@ -66,8 +71,11 @@ def diff_repo(source_repo_path, destination_repo_path):
                     destination_contents = handler.read()
                 if source_contents != destination_contents:
                     # If the files are encrypted...
-                    if '$ANSIBLE_VAULT' in source_contents:
+                    if '$ANSIBLE_VAULT' in str(source_contents):
                         decrypt_file(source_repo_path, local_repo_file)
                         decrypt_file(destination_repo_path, local_repo_file)
-                        results[local_repo_file] = diff_file(source_filepath, destination_filepath)
+                        diff_results = diff_file(source_filepath, destination_filepath)
+                        if type(diff_results) is bytes:
+                            diff_results = diff_results.decode()
+                        results[local_repo_file] = diff_results
     return results
