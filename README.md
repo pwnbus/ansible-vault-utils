@@ -8,6 +8,13 @@ Requires git and ansible-vault commands
 `pip install -e .`
 
 ## Usage
+
+### Supported Environment Variables
+You can use environment variables which will tell the script to not prompt you for certain values
+- AVD_REPO_NAME
+- AVD_SOURCE_REMOTE_BRANCH
+- AVD_DESTINATION_REMOTE_BRANCH
+
 ```bash
 $ ./bin/vault_diff
 Enter repo name: somerandomrepo
