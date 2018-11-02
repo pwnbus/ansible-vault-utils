@@ -10,15 +10,22 @@ if 'AVD_REPO_NAME' not in environ:
 else:
     repo_name = environ['AVD_REPO_NAME']
 
-if 'AVD_SOURCE_REMOTE_BRANCH' not in environ:
-    source_remote_branch = lib.get_input('Enter source remote:branch: ')
-else:
-    source_remote_branch = environ['AVD_SOURCE_REMOTE_BRANCH']
-
 if 'AVD_DESTINATION_REMOTE_BRANCH' not in environ:
     destination_remote_branch = lib.get_input('Enter destination remote:branch: ')
 else:
     destination_remote_branch = environ['AVD_DESTINATION_REMOTE_BRANCH']
+
+if 'AVD_SOURCE_REMOTE_BRANCH' not in environ:
+    source_remote_branch = lib.get_input('Enter source remote:branch: ')
+    if ':' not in source_remote_branch:
+        # This mean we didn't pass a origin
+        # so default to destination origin
+        source_remote_branch = '{0}:{1}'.format(
+            destination_remote_branch.split(':')[0],
+            source_remote_branch
+        )
+else:
+    source_remote_branch = environ['AVD_SOURCE_REMOTE_BRANCH']
 
 repos_path = path.abspath(path.join(path.dirname(__file__), "../data/repos"))
 source_repo_path = path.join(repos_path, 'source')
