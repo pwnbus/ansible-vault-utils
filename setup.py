@@ -16,6 +16,7 @@ config = {
     'version': version,
     'install_requires': [
         'six',
+        'ansible'
     ],
     'packages': ['ansible_vault_diff', 'bin'],
     'scripts': [],
