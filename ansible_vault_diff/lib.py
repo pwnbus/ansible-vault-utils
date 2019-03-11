@@ -54,8 +54,15 @@ def diff_file(source_file, destination_file):
     return diff_output
 
 
+def setup_repo(repo_location):
+    # If we need to create a ansible.cfg file, let's do it
+    if not path.isfile(path.join(repo_location, 'ansible.cfg')) and path.isfile(path.join(repo_location, 'ansible.cfg.inc')):
+        run_command('cp {0}/ansible.cfg.inc {0}/ansible.cfg'.format(repo_location))
+
 def diff_repo(source_repo_path, destination_repo_path):
     results = {}
+    setup_repo(source_repo_path)
+    setup_repo(destination_repo_path)
     for subdir, dirs, files in walk(source_repo_path):
         for file in files:
             source_filepath = path.join(subdir, file)
