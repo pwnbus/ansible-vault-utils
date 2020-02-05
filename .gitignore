@@ -2,4 +2,4 @@
 data/repos/**/*
 
 # Leftover by pip install
-ansible_vault_diff.egg-info/
+ansible_vault_utils.egg-info/

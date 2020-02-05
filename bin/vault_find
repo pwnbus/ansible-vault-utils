@@ -3,7 +3,7 @@
 from six import iteritems
 from os import path, environ
 
-from ansible_vault_diff import lib
+from ansible_vault_utils import lib
 
 if 'AVD_REPO_NAME' not in environ:
     repo_name = lib.get_input('Enter repo name: ')
