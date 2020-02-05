@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+
+from six import iteritems
+from os import path, environ
+
+from ansible_vault_diff import lib
+
+if 'AVD_REPO_NAME' not in environ:
+    repo_name = lib.get_input('Enter repo name: ')
+else:
+    repo_name = environ['AVD_REPO_NAME']
+
+if 'AVD_REMOTE_BRANCH' not in environ:
+    source_remote_branch = lib.get_input('Enter repository remote:branch: ')
+else:
+    source_remote_branch = environ['AVD_REMOTE_BRANCH']
+
+if 'AVD_SEARCH_STRING' not in environ:
+    search_string = lib.get_input('Enter string to search for: ')
+else:
+    search_string = environ['AVD_SEARCH_STRING']
+
+repos_path = path.abspath(path.join(path.dirname(__file__), "../data/repos"))
+source_repo_path = path.join(repos_path, 'source')
+lib.remove_repo_data(source_repo_path)
+try:
+    lib.clone_repo(repo_name, source_remote_branch, source_repo_path)
+    results = lib.find_str(search_string, source_repo_path)
+
+    print('\n== Results ==\n')
+    for filename, file_results in iteritems(results):
+        print('=== {0} ==='.format(filename))
+        for result in file_results:
+            print(result),
+        print('')
+finally:
+    lib.remove_repo_data(source_repo_path)
