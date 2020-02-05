@@ -86,3 +86,33 @@ def diff_repo(source_repo_path, destination_repo_path):
                             diff_results = diff_results.decode()
                         results[local_repo_file] = diff_results
     return results
+
+
+def find_str(search_string, repo_path):
+    results = {}
+    setup_repo(repo_path)
+    for subdir, dirs, files in walk(repo_path):
+        for file in files:
+            source_filepath = path.join(subdir, file)
+            # Skip .git files
+            if '.git/' in source_filepath:
+                continue
+            local_repo_file = source_filepath.replace(repo_path + '/', '')
+            if path.isfile(source_filepath):
+                with open(source_filepath, 'rb') as handler:
+                    source_contents = handler.read()
+                # If the files are encrypted...
+                if '$ANSIBLE_VAULT' in str(source_contents):
+                    decrypt_file(repo_path, local_repo_file)
+                    with open(source_filepath, 'rb') as handler:
+                        source_contents = handler.read()
+                try:
+                    source_contents = source_contents.decode('ascii')
+                except UnicodeDecodeError:
+                    continue
+                for line in source_contents.splitlines():
+                    if search_string in line:
+                        if local_repo_file not in results:
+                            results[local_repo_file] = []
+                        results[local_repo_file].append(line)
+    return results
