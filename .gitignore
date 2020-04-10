@@ -1,5 +1,8 @@
 # Data location to store the repos
 data/repos/**/*
 
+# pyenv
+.python-version
+
 # Leftover by pip install
 ansible_vault_utils.egg-info/
